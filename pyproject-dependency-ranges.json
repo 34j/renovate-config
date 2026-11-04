@@ -1,0 +1,27 @@
+{
+  "packageRules": [
+    {
+      "matchManagers": ["pep621"],
+      "matchFileNames": ["pyproject.toml"],
+      "matchDepTypes": [
+        "build-system.requires",
+        "project.dependencies",
+        "project.optional-dependencies",
+        "dependency-groups"
+      ],
+      "matchCurrentValue": "/^>=/",
+      "enabled": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)pyproject\\.toml$/"],
+      "matchStrings": [
+        "(?<depName>[A-Za-z0-9][A-Za-z0-9._-]*)(?:\\[[^\\]]+\\])?\\s*>=\\s*(?<currentValue>\\d+(?:\\.\\d+)*(?:[-+][A-Za-z0-9.-]+)?)"
+      ],
+      "datasourceTemplate": "pypi",
+      "versioningTemplate": "pep440"
+    }
+  ]
+}
